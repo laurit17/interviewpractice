@@ -9,12 +9,12 @@ type DataSequence interface {
 }
 
 type HeapSorter struct {
-	list *DataSequence
+	list           *DataSequence
 	sortedBoundary int
 }
 
 // heapindex transforms an index in a list to
-// a heap index and vice versa. 
+// a heap index and vice versa.
 func (h *HeapSorter) heapIndex(i int) int {
 	return list.Len() - 1 - i
 }
@@ -22,15 +22,15 @@ func (h *HeapSorter) heapIndex(i int) int {
 // gives you the list indices of the children
 // of a list index.
 func (h *HeapSorter) children(i int) {
-	child1 := h.heapIndex(i)*2
+	child1 := h.heapIndex(i) * 2
 	child2 := h.heapindex(i)*2 + 1
 
 	return h.heapIndex(child1), h.heapIndex(child2)
-}  
+}
 
 func (h *HeapSorter) parent(i int) {
 	heapLoc := h.heapIndex(i)
-	return h.heapIndex(heapLoc/2)
+	return h.heapIndex(heapLoc / 2)
 }
 
 func (h *HeapSorter) hasParent(i int) bool {
@@ -95,15 +95,14 @@ func (h *HeapSorter) heapify(root int) {
 		h.list.Swap(minChild, root)
 	}
 
-
 }
 
 func (h *HeapSorter) Sort() *DataSequence {
 	h.sortedBoundary = 0
-	h.heapify(h.list.Len()-1)
+	h.heapify(h.list.Len() - 1)
 	for h.sortedBoundary = 0; h.sortedBoundary < h.list.Len(); h.sortedBoundary++ {
 		h.list.Swap(h.sortedBoundary, h.list.Len()-1)
-		h.bubbleDown(h.list.Len()-1)
+		h.bubbleDown(h.list.Len() - 1)
 	}
 
 	return h.list
